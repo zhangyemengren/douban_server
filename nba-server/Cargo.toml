@@ -1,5 +1,5 @@
 [package]
-name = "movie-server"
+name = "nba-server"
 version = "0.1.0"
 edition = "2021"
 
