@@ -45,6 +45,7 @@ jobs:
                   cargo install sqlx-cli --version=${{ env.SQLX_VERSION }} --features ${{ env.SQLX_FEATURES }} --no-default-features
             - name: Migrate database
               run: |
+                  cd nba-server
                   sqlx database create
                   sqlx migrate run
 #            - name: Run cargo test
