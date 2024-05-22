@@ -1,0 +1,52 @@
+name: Rust
+
+on:
+    push:
+        branches: [ "main" ]
+    pull_request:
+        branches: [ "main" ]
+
+env:
+    CARGO_TERM_COLOR: always
+    SQLX_VERSION: 0.7.3
+    SQLX_FEATURES: "rustls,mysql"
+    DATABASE_URL: "mysql://mysql:qwer1234@localhost:3306/nba-data"
+
+jobs:
+#    fmt:
+#        runs-on: ubuntu-latest
+#        steps:
+#            - uses: actions/checkout@v3
+#            - uses: dtolnay/rust-toolchain@stable
+#              with:
+#                  components: rustfmt
+#            - name: Run cargo fmt
+#              run: |
+#                  cargo fmt --all -- --check
+    test:
+        runs-on: ubuntu-latest
+        services:
+            postgres:
+                image: mysql:latest
+                env:
+                    POSTGRES_USER: mysql
+                    POSTGRES_PASSWORD: qwer1234
+                    POSTGRES_DB: nba-data
+                ports:
+                    - 3306:3306
+        steps:
+            - uses: actions/checkout@v3
+            - uses: dtolnay/rust-toolchain@stable
+            - uses: swatinem/rust-cache@v2
+              with:
+                  key: sqlx-${{ env.SQLX_VERSION }}
+            - name: Install sqlx-cli
+              run: |
+                  cargo install sqlx-cli --version=${{ env.SQLX_VERSION }} --features ${{ env.SQLX_FEATURES }} --no-default-features
+            - name: Migrate database
+              run: |
+                  sqlx database create
+                  sqlx migrate run
+#            - name: Run cargo test
+#              run: |
+#                  cargo test
