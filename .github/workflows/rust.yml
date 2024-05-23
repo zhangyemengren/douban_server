@@ -26,12 +26,11 @@ jobs:
     test:
         runs-on: ubuntu-latest
         services:
-            postgres:
+            mysql:
                 image: mysql:latest
                 env:
-                    POSTGRES_USER: mysql
-                    POSTGRES_PASSWORD: qwer1234
-                    POSTGRES_DB: nba-data
+                    MYSQL_ROOT_PASSWORD: qwer1234
+                    MYSQL_DATABASE: nba-data
                 ports:
                     - 3306:3306
         steps:
