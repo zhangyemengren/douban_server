@@ -8,9 +8,6 @@ on:
 
 env:
     CARGO_TERM_COLOR: always
-    SQLX_VERSION: 0.7.3
-    SQLX_FEATURES: "rustls,mysql"
-    DATABASE_URL: "mysql://mysql:qwer1234@localhost:3306/nba-data"
 
 jobs:
 #    fmt:
@@ -38,10 +35,10 @@ jobs:
             - uses: dtolnay/rust-toolchain@stable
             - uses: swatinem/rust-cache@v2
               with:
-                  key: sqlx-${{ env.SQLX_VERSION }}
+                  key: sqlx-cli
             - name: Install sqlx-cli
               run: |
-                  cargo install sqlx-cli --version=${{ env.SQLX_VERSION }} --features ${{ env.SQLX_FEATURES }} --no-default-features
+                  cargo install sqlx-cli
             - name: Migrate database
               run: |
                   cd nba-server
