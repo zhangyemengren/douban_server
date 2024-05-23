@@ -1,6 +1,6 @@
 -- database
-# create database nba;
-ALTER DATABASE nba CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+# create database nba-data;
+ALTER DATABASE `nba-data` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 -- tables
 CREATE TABLE team
 (
