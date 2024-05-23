@@ -20,16 +20,6 @@ jobs:
             - name: Run cargo fmt
               run: |
                   cargo fmt --all -- --check
-    clippy:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: dtolnay/rust-toolchain@stable
-              with:
-                  components: clippy
-            - name: Run cargo clippy
-              run: |
-                  cargo clippy --all-targets --all-features -- -D warnings
     test:
         runs-on: ubuntu-latest
         services:
@@ -54,6 +44,8 @@ jobs:
                   cd nba-server
                   sqlx database create
                   sqlx migrate run
-            - name: Run cargo test
+            - name: Run cargo test & clippy
               run: |
-                  cargo test
+                  cargo test & 
+                  cargo clippy --all-targets --all-features -- -D warnings &
+                  wait
