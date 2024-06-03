@@ -10,3 +10,9 @@ serde = {workspace = true}
 serde_json = {workspace = true}
 tokio = {workspace = true}
 reqwest = { workspace = true }
+
+[[bin]]
+name = "load-data"
+test = false
+bench = false
+path = "src/bin/load_data.rs"

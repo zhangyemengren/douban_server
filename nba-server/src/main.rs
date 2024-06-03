@@ -1,11 +1,8 @@
-mod load_data;
 
 use axum::{routing::get, Router};
 
 #[tokio::main]
 async fn main() {
-    load_data::load().await;
-
     let app = Router::new()
         .route("/", get(root));
 

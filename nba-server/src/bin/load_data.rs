@@ -1,7 +1,6 @@
 use std::env;
 use reqwest;
 use serde::{Deserialize, Serialize};
-// use serde_json::{Deserializer, Serializer};
 
 #[derive(Debug,Deserialize,Serialize)]
 pub struct Team {
@@ -18,11 +17,15 @@ pub struct Data {
     data: Vec<Team>
 }
 
-pub async fn load(){
+pub fn load(){
     let key = env::var("API_KEY").unwrap();
     let url = "https://api.balldontlie.io/v1/teams";
-    let client = reqwest::Client::new();
+    let client = reqwest::blocking::Client::new();
     let res: Data = client.get(url)
-        .header("Authorization", key).send().await.unwrap().json().await.unwrap();
+        .header("Authorization", key).send().unwrap().json().unwrap();
     println!("{:?}", res);
+}
+
+fn main() {
+    load();
 }
