@@ -1,18 +1,8 @@
-use reqwest;
+use nba_server::Team;
 use serde::{Deserialize, Serialize};
 use sqlx::{self, mysql::MySqlPoolOptions};
 use std::env;
 
-#[derive(Debug, Deserialize, Serialize)]
-pub struct Team {
-    id: i32,
-    abbreviation: String,
-    city: String,
-    conference: String,
-    division: String,
-    full_name: String,
-    name: String,
-}
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Data {
     data: Vec<Team>,
