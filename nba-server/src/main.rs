@@ -20,6 +20,7 @@ async fn main() {
     let app = Router::new()
         .route("/", get(root))
         .route("/team", get(get_team))
+        .route("/team/:conference", get(routes::get_team_by_conference))
         .with_state(state);
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8000").await.unwrap();

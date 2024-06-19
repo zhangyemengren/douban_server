@@ -10,3 +10,10 @@ pub struct Team {
     pub full_name: String,
     pub name: String,
 }
+
+#[derive(Debug, Deserialize, Serialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Conference {
+    East,
+    West,
+}
